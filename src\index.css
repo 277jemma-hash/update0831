@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+@theme {
+  /* 전체 서체: IBM Plex Sans KR로 통일 */
+  --font-sans: 'IBM Plex Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'IBM Plex Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'IBM Plex Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* 메인색 1: #1E6FA8 을 blue-600 기준으로 한 팔레트 */
+  --color-blue-50: #eff6fb;
+  --color-blue-100: #dbeaf3;
+  --color-blue-200: #b8d6e9;
+  --color-blue-300: #8cbbda;
+  --color-blue-400: #5c9bc5;
+  --color-blue-500: #3480af;
+  --color-blue-600: #1e6fa8;
+  --color-blue-700: #185c8b;
+  --color-blue-800: #154c72;
+  --color-blue-900: #133f5e;
+  --color-blue-950: #0c2940;
+
+  /* 메인색 2: #2E3B50 을 헤드라인/진한 텍스트 색상(slate-900)으로 사용 */
+  --color-slate-900: #2e3b50;
+
+  /* 포인트색 1: #F2A13B 를 amber 팔레트 기준으로 사용 (연식/강조 배지) */
+  --color-amber-50: #fef6ea;
+  --color-amber-100: #fdecd0;
+  --color-amber-200: #fad89e;
+  --color-amber-300: #f7c274;
+  --color-amber-400: #f4b158;
+  --color-amber-500: #f2a13b;
+  --color-amber-600: #d68320;
+  --color-amber-700: #b3691a;
+  --color-amber-800: #8f5417;
+  --color-amber-900: #744516;
+  --color-amber-950: #422409;
+
+  /* 포인트색 2: #157E8C 를 teal 팔레트 기준으로 사용 (보조 정보 배지) */
+  --color-teal-50: #eaf7f8;
+  --color-teal-100: #d0edf0;
+  --color-teal-200: #a1dbe1;
+  --color-teal-300: #6cc4cd;
+  --color-teal-400: #38a9b5;
+  --color-teal-500: #1d8d99;
+  --color-teal-600: #157e8c;
+  --color-teal-700: #146672;
+  --color-teal-800: #14535d;
+  --color-teal-900: #14454e;
+  --color-teal-950: #062a30;
+
+  /* 보라(indigo) 계열 -> 코발트블루로 대체, 기존 팔레트와 조화 */
+  --color-indigo-50: #eef2f9;
+  --color-indigo-100: #dbe3f2;
+  --color-indigo-200: #b6c7e5;
+  --color-indigo-300: #8ba7d3;
+  --color-indigo-400: #5c81b8;
+  --color-indigo-500: #3c649e;
+  --color-indigo-600: #2a4b8d;
+  --color-indigo-700: #223c72;
+  --color-indigo-800: #1b2f5c;
+  --color-indigo-900: #16274a;
+  --color-indigo-950: #0d1730;
+}
+
+
+/* 하나의 트랙에서 최소·최대 전용평수를 정하는 이중 커서 */
+.comparable-range {
+  position: relative;
+  height: 24px;
+  display: flex;
+  align-items: center;
+}
+.comparable-range::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 6px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    #e2e8f0 0 var(--range-start, 0%),
+    #1e6fa8 var(--range-start, 0%) var(--range-end, 100%),
+    #e2e8f0 var(--range-end, 100%) 100%
+  );
+}
+.comparable-range input {
+  appearance: none;
+  -webkit-appearance: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 24px;
+  margin: 0;
+  pointer-events: none;
+  background: transparent;
+}
+.comparable-range input::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #1e6fa8;
+  border: 3px solid #ffffff;
+  box-shadow: 0 1px 4px rgba(30, 111, 168, .45);
+  cursor: grab;
+  pointer-events: auto;
+}
+.comparable-range input::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #1e6fa8;
+  border: 3px solid #ffffff;
+  box-shadow: 0 1px 4px rgba(30, 111, 168, .45);
+  cursor: grab;
+  pointer-events: auto;
+}
