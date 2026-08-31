@@ -478,13 +478,12 @@ JSON 응답 필드:
 
       const parcelRequests = Array.from(parcelRequestMap.entries());
 
-      for (let i = 0; i < parcelRequests.length; i += 6) {
-        const batch = parcelRequests.slice(i, i + 6);
+      for (let i = 0; i < parcelRequests.length; i += 2) {
+        const batch = parcelRequests.slice(i, i + 2);
 
         const results = await Promise.allSettled(
             batch.map(async ([requestKey, request]) => {
-              const [recapItems, titleItems] = await Promise.all([
-                fetchAllParcelPages(pageNo =>
+              const recapItems = await fetchAllParcelPages(pageNo =>
                     buildingLedgerFallbackAdapter.fetchParcelPage(
                         sigunguCd,
                         request.bjdongCd,
@@ -493,8 +492,8 @@ JSON 응답 필드:
                         pageNo,
                         100
                     ) as Promise<{ items: NamedAddressRecord[]; hasMore: boolean; nextPageNo: number }>
-                ),
-                fetchAllParcelPages(pageNo =>
+                );
+              const titleItems = await fetchAllParcelPages(pageNo =>
                     buildingLedgerFallbackAdapter.fetchParcelTitlePage(
                         sigunguCd,
                         request.bjdongCd,
@@ -503,8 +502,7 @@ JSON 응답 필드:
                         pageNo,
                         100
                     ) as Promise<{ items: NamedAddressRecord[]; hasMore: boolean; nextPageNo: number }>
-                )
-              ]);
+                );
 
               return {
                 requestKey,
@@ -700,8 +698,8 @@ JSON 응답 필드:
       if (kaptBasisService) {
         const aptTargets = listings.filter(listing => listing.rletTpCd === 'APT' || listing.rletTpCd === undefined);
 
-        for (let i = 0; i < aptTargets.length; i += 6) {
-          const batch = aptTargets.slice(i, i + 6);
+        for (let i = 0; i < aptTargets.length; i += 2) {
+          const batch = aptTargets.slice(i, i + 2);
 
           const results = await Promise.allSettled(
               batch.map(async listing => {
@@ -757,13 +755,12 @@ JSON 응답 필드:
 
       const pnuEntries = Array.from(pnuTargets.values());
 
-      for (let i = 0; i < pnuEntries.length; i += 6) {
-        const batch = pnuEntries.slice(i, i + 6);
+      for (let i = 0; i < pnuEntries.length; i += 2) {
+        const batch = pnuEntries.slice(i, i + 2);
 
         const results = await Promise.allSettled(
             batch.map(async target => {
-              const [recap, title] = await Promise.all([
-                fetchAllParcelPages(pageNo =>
+              const recap = await fetchAllParcelPages(pageNo =>
                     buildingLedgerFallbackAdapter.fetchParcelPage(
                         target.pnuInfo.sigunguCd,
                         target.pnuInfo.bjdongCd,
@@ -772,8 +769,8 @@ JSON 응답 필드:
                         pageNo,
                         100
                     ) as Promise<{ items: NamedAddressRecord[]; hasMore: boolean; nextPageNo: number }>
-                ),
-                fetchAllParcelPages(pageNo =>
+                );
+              const title = await fetchAllParcelPages(pageNo =>
                     buildingLedgerFallbackAdapter.fetchParcelTitlePage(
                         target.pnuInfo.sigunguCd,
                         target.pnuInfo.bjdongCd,
@@ -782,8 +779,7 @@ JSON 응답 필드:
                         pageNo,
                         100
                     ) as Promise<{ items: NamedAddressRecord[]; hasMore: boolean; nextPageNo: number }>
-                )
-              ]);
+                );
 
               return { listingIds: target.listingIds, recap, title };
             })
