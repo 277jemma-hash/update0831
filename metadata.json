@@ -1,0 +1,7 @@
+{
+  "name": "부동산 거래사례비교법 및 시세 분석기",
+  "description": "네이버 부동산 매물 연동, 카카오 지도(Kakao Maps Web SDK) 스카이뷰 및 로드뷰 입지 분석, 사용승인일 보정 거래사례비교법 가치평가 시스템",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
